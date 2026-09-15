@@ -1,0 +1,42 @@
+# Next session — nn-nimbus
+
+Updated 2026-09-15.
+
+3DS client (Luma): account manager (`nimbus.cia`/`.3dsx`), plugin
+(`nimbus.3gx`) and IPS patches — Pretendo's nimbus pointed at OpenPak.
+Built and released on `openpak-v1` (2026-09-12); per the 3DS PRD, one
+hardware sign-in from being measurable.
+
+## Where things stand
+
+- HEAD = `openpak-v1` (2026-09-12); 15 tags; nothing unreleased.
+- One-command build: `docker/build.sh` (toolchain image builds CTRPF
+  serially — its Makefile races under `-j`; then plugin, app, and the IPS
+  patches when the six dumps are in place).
+- The build surfaced the rebrand-era bug: the socket patch resolved
+  `*.openpak.org` to `openpak_server_ip`, a symbol defined nowhere. Now
+  defined, and matching what `nn-sssl-dns` serves: nncs1 + every
+  `*.openpak.org` name → 145.241.199.19, nncs2 → 145.241.228.207.
+- Server side verified reachable for a sign-in: `account.openpak.org`
+  answers `healthz` through Cloudflare; `nasc.openpak.org` has no public
+  DNS by design — the socket patch resolves it on-console.
+- The six IPS patches assemble against synthetic images; shipping them
+  needs sysmodule dumps only a real console can provide
+  (`patches/<module>/code.bin`: act, friends, http, socket, ssl, miiverse;
+  dumps gitignored).
+- Untracked (2026-09-15 docs pass): `CHANGELOG.md`, `docs/`, `prds/` stubs.
+
+## Next steps
+
+1. DS3-1 — the one sign-in: install `nimbus.cia` with FBI, run, pick the
+   **Pretendo** button (that is the OpenPak path), sign in; watch
+   `nn-account` logs. Converts five PRD rows from believed to known.
+2. Dump the six modules per `DECOMPRESSING.md`, re-run `docker/build.sh`,
+   copy the IPS patches to `3ds/nimbus/update/` on the SD card.
+3. Luma prereqs: "Enable loading external FIRMs and modules" + "Enable
+   game patching" (13.0+); plugin via Rosalina → Plugin Loader → Enabled.
+
+## Pointers
+
+- README: OpenPak usage steps 1–6, build, DECOMPRESSING.md
+- ../prds/platform-3ds-prd.md — DS3-0 done, DS3-1 next, §2 the build story
