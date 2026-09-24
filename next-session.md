@@ -1,15 +1,21 @@
 # Next session — nn-nimbus
 
-Updated 2026-09-15.
+Updated 2026-09-24.
 
 3DS client (Luma): account manager (`nimbus.cia`/`.3dsx`), plugin
 (`nimbus.3gx`) and IPS patches — Pretendo's nimbus pointed at OpenPak.
 Built and released on `openpak-v1` (2026-09-12); per the 3DS PRD, one
 hardware sign-in from being measurable.
 
+Current status 2026-09-24: latest OpenPak tag still `openpak-v1` (c94dca6;
+`v2.1.1` is upstream's). Since then only CI (release now triggers on
+`v*.*.*` tags, not `openpak-v*`) and docs commits.
+
 ## Where things stand
 
-- HEAD = `openpak-v1` (2026-09-12); 15 tags; nothing unreleased.
+- Last release `openpak-v1` (2026-09-12); no code since, only CI + docs.
+  The next release needs a `v*.*.*` tag (ef8dcd6) — it must not collide with
+  upstream's `v1.x`/`v2.x` tags already in the repo.
 - One-command build: `docker/build.sh` (toolchain image builds CTRPF
   serially — its Makefile races under `-j`; then plugin, app, and the IPS
   patches when the six dumps are in place).
@@ -24,7 +30,7 @@ hardware sign-in from being measurable.
   needs sysmodule dumps only a real console can provide
   (`patches/<module>/code.bin`: act, friends, http, socket, ssl, miiverse;
   dumps gitignored).
-- Untracked (2026-09-15 docs pass): `CHANGELOG.md`, `docs/`, `prds/` stubs.
+- 2026-09-15 docs pass committed: `CHANGELOG.md`, `docs/`, `prds/` stubs.
 
 ## Next steps
 
