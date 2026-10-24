@@ -1,4 +1,4 @@
-# Next session — nn-nimbus
+# Next session — OpenPak 3DS Patcher
 
 Updated 2026-09-24.
 
